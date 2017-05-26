@@ -1,0 +1,37 @@
+## R script for creating plots from Electric power consumption data for Exploratory Data Analysis course.
+
+# Download data if required
+download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
+              "power.zip",method= "curl")
+unzip("power.zip")
+
+# Read data if required
+colclass <- c(rep("character",2),rep("numeric",7))
+powerDF <- read.table("household_power_consumption.txt", header=TRUE, sep=";", 
+                      colClasses=colclass, na.strings = "?")
+
+# Format data
+powerDF$Date <- as.Date(powerDF$Date, format="%d/%m/%Y")
+powerDF <- subset(powerDF, Date>="2007-02-01" & Date<="2007-02-02")
+powerDF$DateTime <- as.POSIXlt(paste(powerDF$Date, powerDF$Time), format="%Y-%m-%d %H:%M:%S")
+powerDF$Time <- strptime(powerDF$Time, format="%H:%M:%S")
+
+
+## Plot 3 ##
+
+# Set plot area
+par(mfrow=c(1,1))
+
+# Set-up legend names
+legtxt <- names(powerDF)[grep("Sub_", names(powerDF))]
+
+# Plot 3 of sub_metering
+png("plot3.png", width=480, height=480)
+
+  with(powerDF, {
+    plot(DateTime, Sub_metering_1, type="l", ylab="Energy sub metering", xlab="")
+    lines(DateTime, Sub_metering_2, col="red")
+    lines(DateTime, Sub_metering_3, col="blue")
+    legend("topright", legend=legtxt, lty = 1, col=c("black","red","blue"))
+  })
+dev.off()
