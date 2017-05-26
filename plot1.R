@@ -2,7 +2,7 @@
 
 # Download data if required
 download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
-              "power.zip",method= "curl")
+              "power.zip", method= "curl")
 unzip("power.zip")
 
 # Read data if required
