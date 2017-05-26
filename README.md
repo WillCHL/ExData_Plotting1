@@ -1,3 +1,10 @@
+## Plotting Assignment 1 for Exploratory Data Analysis
+
+PNG plots and the R scripts to create them are avaliable in this repository.
+
+Original assignment details and instructions are below:
+
+
 ## Introduction
 
 This assignment uses data from
